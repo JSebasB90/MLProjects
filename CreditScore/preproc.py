@@ -53,11 +53,13 @@ class Process:
 
         return X, y
 
-    def statistics_process(self, X, y):
+    def separate(self, X, y):
         
         #Let’s split X and y using Train test split
         X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8, random_state= 1727, stratify=y)
+        return X_train, X_test, y_train, y_test
 
+    def statistics_process(self, X_train, X_test, y_train, y_test):
         #grouping X_train by values
         X_train_cat = X_train.select_dtypes(include=['object', 'category']).copy()
         X_train_num = X_train.select_dtypes(include = 'number').copy()

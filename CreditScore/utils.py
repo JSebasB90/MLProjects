@@ -12,6 +12,7 @@ from scipy import stats
 from sklearn.metrics import roc_auc_score, roc_curve
 
 
+
 class MeanImputer(BaseEstimator, TransformerMixin):
     """ This is the imputer for numerical values without outliers
 
@@ -149,6 +150,8 @@ class Chi2:
         # Remove the columns in the list to_drop from X
         X = X.drop(columns=to_drop)
         return X
+    
+
 
 
 class Anova:
@@ -214,7 +217,7 @@ class Dummy:
         df = pd.concat([df, df_dummies], axis=1)
         
         return df
-    
+
     
 
 
@@ -290,7 +293,6 @@ class Woe_iv:
         # Calcular el IV
         df['IV'] = (df['prop_n_good'] - df['prop_n_bad']) * df['WoE']
         df['IV'] = df['IV'].sum()
-        
         return df
 
 class LogisticRegression_with_p_values:

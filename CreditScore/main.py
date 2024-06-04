@@ -6,7 +6,8 @@ if __name__== "__main__":
     ruta= 'in/data.csv'
     processor = Process()
     X, y = processor.preprocess_data(ruta)
-    X_train, X_test, y_train, y_test = processor.statistics_process(X,y)
+    X_train, X_test, y_train, y_test = processor.separate(X,y)
+    X_train, X_test, y_train, y_test = processor.statistics_process(X_train, X_test, y_train, y_test)
     X_train = processor.categ_woe(X_train)
     X_test = processor.categ_woe(X_test)
     #X_train.to_csv('in/X_train_prepr.csv', index=False)

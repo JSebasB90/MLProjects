@@ -3,7 +3,7 @@ from utils import LogisticRegression_with_p_values, Testeos, ScoreCard
 from sklearn.linear_model import LogisticRegression
 import pandas as pd
 import pickle
-
+import joblib
 
 class Model:
     """Class for creating and analyzing logistic regression models."""
@@ -147,6 +147,9 @@ class Model:
         df_actual_predicted_probs.index = y_test.index
 
         pickle.dump(reg, open('in/pd_model.sav', 'wb'))
+        
+        #exportar modelo
+        joblib.dump(reg, open('in/pd_model.pkl', 'wb'))
                 # Con esto calculamos AUROC, tr y gini
         bestauroc = Testeos(y_test, y_hat_test_proba)
         tr = bestauroc.get_optimal_threshold()
@@ -154,7 +157,6 @@ class Model:
         gini = bestauroc.calculate_Gini(tr)
 
         return inputs_train, inputs_test, ref_categories
-
     
     def create_scorecard(inputs_train, y_train, ref_categories, min_score, max_score):
         logreg = LogisticRegression_with_p_values(max_iter = 6, 
@@ -176,3 +178,4 @@ class Model:
         df_scorecard, min_sum_coef, max_sum_coef = scorecard.score_max_min(min_score, max_score, df_scorecard)
 
         return df_scorecard
+
